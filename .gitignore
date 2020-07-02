@@ -1,0 +1,6 @@
+*.dat
+*.h5
+*.npy
+*.pgf
+*.pdf
+*.DS_store
