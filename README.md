@@ -6,5 +6,5 @@ These python codes allow to reproduce the results shown in the paper ``Testing t
 
 This folder contains:
 
-    - mcmc_flatLCDM.py which produces the posterior samples of a flat <img src="https://render.githubusercontent.com/render/math?math=\Lambda">CDM model on the matter density and performs a Monte Carlo Markov Chain
+- mcmc_flatLCDM.py which produces the posterior samples of a flat <img src="https://render.githubusercontent.com/render/math?math=\Lambda">CDM model on the matter density and performs a Monte Carlo Markov Chain
 
