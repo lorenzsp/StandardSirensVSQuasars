@@ -1,6 +1,6 @@
 # StandardSirensVSQuasars
 
-The python codes contained in this folder have been used to reproduce the main the results shown in the paper **Testing the Quasar Hubble Diagram with LISA Standard Sirens** arXiv ---. We implemented a Bayesian hypothesis test to understand how many LISA MBHBs Standard Siren observations are necessary to test the deviation from the <img src="https://render.githubusercontent.com/render/math?math=\Lambda">CDM model found by Risaliti and Lusso with quasars observations [Nat. Astron.3, 272 (2019)]. In addition, we also implemented an MCMC to understand the constraining power of LISA standard sirens on matter density and Hubble parameter for the flat <img src="https://render.githubusercontent.com/render/math?math=\Lambda">CDM model.
+The python codes contained in this folder have been used to reproduce the main the results shown in the paper **Testing the Quasar Hubble Diagram with LISA Standard Sirens** [1]. We implemented a Bayesian hypothesis test to understand how many LISA MBHBs Standard Siren observations are necessary to test the deviation from the <img src="https://render.githubusercontent.com/render/math?math=\Lambda">CDM model found by Risaliti and Lusso with quasars observations [2]. In addition, we also implemented an MCMC to understand the constraining power of LISA standard sirens on matter density and Hubble parameter for the flat <img src="https://render.githubusercontent.com/render/math?math=\Lambda">CDM model.
 
 ## Files description
 
@@ -23,8 +23,11 @@ This folder contains:
 
 Lorenzo Speri: lorenzo.speri@aei.mpg.de
 
-The data of quasar observations are available from the corresponding author Risaliti and Lusso [Nat. Astron.3, 272 (2019)] upon reasonable request.
-The codes used to analyze quasar observations can be provided 
+Our codes used in **Testing the Quasar Hubble Diagram with LISA Standard Sirens** [1] to analyze quasar observations can be also provided, however their usage depends on the quasar data which are available from the corresponding author of [2] upon reasonable request.
+Please contact the author of [2] for the data and we will provide the codes for our analysis.
 
-The datasets and the codes used to perform under it is necessary you can contact me and we can to get in contact with the author  for 
 
+## References
+
+[1]: 
+[2]: Risaliti, G., Lusso, E. Cosmological constraints from the Hubble diagram of quasars at high redshifts. Nat Astron 3, 272–277 (2019). https://doi.org/10.1038/s41550-018-0657-z
