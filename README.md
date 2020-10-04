@@ -1,7 +1,6 @@
 # StandardSirensVSQuasars
 
-The python codes contained in this folder have been used to reproduce the main the results shown in the paper 
-<p> <em>Testing the Quasar Hubble Diagram with LISA Standard Sirens</em> </p> arXiv ---. We implemented a Bayesian hypothesis test to understand how many LISA MBHBs Standard Siren observations are necessary to test the deviation from the <img src="https://render.githubusercontent.com/render/math?math=\Lambda">CDM model found by Risaliti and Lusso with quasars observations [Nat. Astron.3, 272 (2019)]. In addition, we also implemented an MCMC to understand the constraining power of LISA standard sirens on matter density and Hubble parameter for the flat <img src="https://render.githubusercontent.com/render/math?math=\Lambda">CDM model.
+The python codes contained in this folder have been used to reproduce the main the results shown in the paper <em>Testing the Quasar Hubble Diagram with LISA Standard Sirens</em> arXiv ---. We implemented a Bayesian hypothesis test to understand how many LISA MBHBs Standard Siren observations are necessary to test the deviation from the <img src="https://render.githubusercontent.com/render/math?math=\Lambda">CDM model found by Risaliti and Lusso with quasars observations [Nat. Astron.3, 272 (2019)]. In addition, we also implemented an MCMC to understand the constraining power of LISA standard sirens on matter density and Hubble parameter for the flat <img src="https://render.githubusercontent.com/render/math?math=\Lambda">CDM model.
 
 ## Files description
 
