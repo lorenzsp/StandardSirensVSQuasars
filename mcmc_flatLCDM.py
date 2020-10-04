@@ -138,8 +138,8 @@ pos = [Omega_m_ref, href]
 # define sampler
 def MCMC_sampler(pos, iterations):
     nwalkers, ndim = pos.shape
-    sampler = emcee.EnsembleSampler(nwalkers, ndim, log_post, args=(z_SS, DL_SS, dDL_SS))
-    sampler.run_mcmc(pos, iterations, progress=True)
+    sampler = emcee.EnsembleSampler(nwalkers, ndim, log_post, args=(z_SS, DL_SS, dDL_SS)) 
+    sampler.run_mcmc(pos, iterations, progress=False) # change progress to True if you want to see the progress bar
 
     # info about the MCMC
     #print("autocorrelation ",sampler.get_autocorr_time())
