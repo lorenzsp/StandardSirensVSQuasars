@@ -20,7 +20,7 @@ This folder contains:
     output: EvidenceData_BayesPlot.h5
     where each column contains the samples of the Bayes factor realizations, and the column number corresponds to the number of standard sirens
 
-    ![](https://github.com/lorenzsp/StandardSirensVSQuasars/blob/master/plots/LCDMpost.pdf)
+<p align="center"><img src="https://github.com/lorenzsp/StandardSirensVSQuasars/blob/master/plots/LCDMpost.pdf"></p>
 
 ## Contact
 
