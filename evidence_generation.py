@@ -113,14 +113,13 @@ print("check the integration ", evidence_LCDM(z_SS[:Ncheck],DL_SS[:Ncheck],dDL_S
 # Risaliti Lusso Model based on the Figure 5 of their paper
 ############################################################
 
-#  file
-file = h5py.File('RL_Samples_a2_a3_withJLA_withCorr_woDelta_wideprior.h5','r')
-# samples
-x = file["samples"][:,0]
-y = file["samples"][:,1]
-center = np.mean(file["samples"][:,:], axis=0)
-cov = np.cov(file["samples"][:,:], rowvar=0)
+#  posterior sample mean and covariance from RLposterior
+center = np.array([3.41309063, 1.40248073])
+cov = np.array([[ 0.01961402, -0.06005197],
+ [-0.06005197, 0.24775043]])
 
+print("mean value",center)
+print("covariance matrix", cov)
 # invers of the covariance matrix
 Mfinal=np.linalg.inv(cov)
 
@@ -197,10 +196,10 @@ def distribution_bayes_factor(n_z):
     """
 
     R = np.arange(0,int((n_z+1)*realizations) ,n_z+1)
-    print("Number of Bayes factor {} \n".format(len(R)))
-    print("number of standard sirens per each Bayes {} \n".format(n_z))
-    print("one of them is ", Bayes_factor_LCDM_RL(z_SS[1:1+n_z], DL_SS[1:1+n_z], dDL_SS[1:1+n_z] ))
-    print("catalogues numbers ", R)
+    #print("Number of Bayes factor {} \n".format(len(R)))
+    #print("number of standard sirens per each Bayes {} \n".format(n_z))
+    #print("one of them is ", Bayes_factor_LCDM_RL(z_SS[1:1+n_z], DL_SS[1:1+n_z], dDL_SS[1:1+n_z] ))
+    #print("catalogues numbers ", R)
 
     return np.array([Bayes_factor_LCDM_RL(z_SS[j:j+n_z], DL_SS[j:j+n_z], dDL_SS[j:j+n_z] ) for j in R]) # the plus needed for not re using the data
 
