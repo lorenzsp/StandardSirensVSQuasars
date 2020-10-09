@@ -19,6 +19,9 @@ This folder contains:
     execute: python evidence_generation.py
     output: EvidenceData_BayesPlot.h5
     where each column contains the samples of the Bayes factor realizations, and the column number corresponds to the number of standard sirens
+    
+- LISA_vs_Quasars.nb
+    Mathematica notebook used to construct catalogues of LISA MBHB Standard Sirens and to investigate the constraints on Hubble parameter and matter density
 
 ## Contact
 
@@ -30,6 +33,6 @@ Please contact the author of [2] for the usage permission of their data and we w
 
 ## References
 
-[1]: 
+[1]: L. Speri, N. Tamanini, R. R. Caldwell, J. Gair, B. Wang. Testing the Quasar Hubble Diagram with LISA Standard Sirens
 
-[2]: Risaliti, G., Lusso, E. Cosmological constraints from the Hubble diagram of quasars at high redshifts. Nat Astron 3, 272–277 (2019). https://doi.org/10.1038/s41550-018-0657-z
+[2]: G. Risaliti, E. Lusso. Cosmological constraints from the Hubble diagram of quasars at high redshifts. Nat Astron 3, 272–277 (2019). https://doi.org/10.1038/s41550-018-0657-z
