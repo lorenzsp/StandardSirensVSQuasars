@@ -1,7 +1,8 @@
 ################################################################################
-# Calculation of the evidence of the flat LCDM and Risaliti Lusso best-fit model
+# Calculation of the evidence of the flat LCDM and ALT best-fit model
+print("Calculation of the evidence of the flat LCDM and ALT best-fit model \n")
 # flat LCDM -> beta prior
-# RL -> Multivariate Gaussian prior
+# ALT -> Multivariate Gaussian prior
 ################################################################################
 
 import scipy.stats as stats
@@ -51,6 +52,12 @@ def Ell_DL_LCDM(z, Omega_m):
     
     return ((1.0+z)/(H0 * np.sqrt(s * Omega_m)) )*(T(s) - T(s/(1.0+z)) )
 
+
+# check correctness of luminosity distance integration
+zz = np.arange(0.1, 10, 0.1)
+MM = np.max( (getDL_LCDM(zz, Omega_m_ref) - Ell_DL_LCDM(zz, Omega_m_ref))/Ell_DL_LCDM(zz, Omega_m_ref)  )
+print("max relative difference = " ,MM)
+
 ############################
 # Risaliti Lusso fitted model
 ############################
@@ -71,7 +78,7 @@ data_z_D_dD = pd.read_csv("SS_catalogues.dat" ,sep="\s+").values
 z_SS = data_z_D_dD[:,0] # redshift
 DL_SS = data_z_D_dD[:,1]*1e3 # luminosity distance in Mpc
 dDL_SS = data_z_D_dD[:,2]*1e3 # uncertainty in luminosity distance
-print("Imported Data")
+print("Imported Data \n")
 
 ############################################################
 #### Evidences of the different models ####################
@@ -86,31 +93,32 @@ print("Imported Data")
 ################
 
 # constants beta prior
-MEDIAN = 0.31 # changed
-b=50 # makes it narrower such that the std is 0.05
-a= (1/3 +MEDIAN *(b-2/3))/(1-MEDIAN) # the median value is 0.31
+MEDIAN = 0.31 
+b = 50 # makes it narrower such that the std is 0.05
+a = (1/3 +MEDIAN *(b-2/3))/(1-MEDIAN) # the median value is 0.31
 
+print("a = ", a," and b = ", b," of LCDM beta prior")
 # prior of the LCDM
 def prior_Omega(Omega):
     return stats.beta.pdf(Omega,a,b)
 
 # check normalization of the prior
-print("normalization " ,quad(prior_Omega, 0,1)[0])
+#print("normalization " ,quad(prior_Omega, 0,1)[0])
 
 # Product of the likelihood and prior
 def likelihood_x_Omega(Omega_m, z, D, dD):
     # likelihood with given redshifts and distance luminosities
     # beta prior between 0 and 1
-    return (np.product( np.exp(-(D - Ell_DL_LCDM(z, Omega_m))**2 /(2*(dD*dD) ))/(np.sqrt(2* np.pi)*dD) ))*prior_Omega(Omega_m)
+    return (np.product( np.exp(-(D - Ell_DL_LCDM(z, Omega_m))**2 /(2*(dD*dD) ) )/(np.sqrt(2* np.pi)*dD) ))*prior_Omega(Omega_m)
 
 # evidence of the LCDM
 def evidence_LCDM(z,D,dD):
     return quad(likelihood_x_Omega, 0., 1., args=(z,D,dD))[0]
 
 Ncheck = 30
-print("check the integration ", evidence_LCDM(z_SS[:Ncheck],DL_SS[:Ncheck],dDL_SS[:Ncheck])/quad(likelihood_x_Omega, 0.0, 1.0, args=(z_SS[:Ncheck],DL_SS[:Ncheck],dDL_SS[:Ncheck]), epsabs=1e-50)[0] )
+#print("check the integration ", evidence_LCDM(z_SS[:Ncheck],DL_SS[:Ncheck],dDL_SS[:Ncheck])/quad(likelihood_x_Omega, 0.0, 1.0, args=(z_SS[:Ncheck],DL_SS[:Ncheck],dDL_SS[:Ncheck]), epsabs=1e-50)[0] )
 ############################################################
-# Risaliti Lusso Model based on the Figure 5 of their paper
+# ALT Model 2 based on Figure 5 of Risaliti Lusso paper
 ############################################################
 
 #  posterior sample mean and covariance from RLposterior
@@ -118,8 +126,12 @@ center = np.array([3.41309063, 1.40248073])
 cov = np.array([[ 0.01961402, -0.06005197],
  [-0.06005197, 0.24775043]])
 
+print("\n")
+print("Multivariate Gaussian prior for ALT model")
 print("mean value",center)
 print("covariance matrix", cov)
+print("\n")
+
 # invers of the covariance matrix
 Mfinal=np.linalg.inv(cov)
 
@@ -161,7 +173,7 @@ def prior_a2_a3_normal(a2,a3):
     result= np.exp(-ARG/2)/factor_prior_a2a3
     return result
 
-print("normalization " ,dblquad(prior_a2_a3_normal, -10.,+10., -10.,+10.)[0])
+print("check normalization " ,dblquad(prior_a2_a3_normal, -10.,+10., -10.,+10.)[0])
 
 # Product of the likelihood and prior
 def likelihood_x_a2_a3(a2, a3,  z, D, dD):
@@ -196,11 +208,12 @@ def distribution_bayes_factor(n_z):
     """
 
     R = np.arange(0,int((n_z+1)*realizations) ,n_z+1)
-    #print("Number of Bayes factor {} \n".format(len(R)))
-    #print("number of standard sirens per each Bayes {} \n".format(n_z))
+    #print("Number of realizations {} ".format(len(R)))
+    #print("number of standard sirens per each Bayes {} ".format(n_z))
+    #print("check number of standard sirens per each Bayes  ", np.mean([len(z_SS[j:j+n_z]) for j in R]))
     #print("one of them is ", Bayes_factor_LCDM_RL(z_SS[1:1+n_z], DL_SS[1:1+n_z], dDL_SS[1:1+n_z] ))
-    #print("catalogues numbers ", R)
-
+    #print("catalogue number start ", R)
+    #print("\n")
     return np.array([Bayes_factor_LCDM_RL(z_SS[j:j+n_z], DL_SS[j:j+n_z], dDL_SS[j:j+n_z] ) for j in R]) # the plus needed for not re using the data
 
 ###############################
@@ -225,6 +238,58 @@ for i in range(0,N_SS):
 # write to data
 #######################################
 
+
+# figure
+plt.figure()
+n_ss_vec = np.array(range(0, N_SS)) +1
+
+# median
+mu = [np.median( BF[j,:]) for j in range(0, N_SS) ]
+
+# 90 %
+low = [stats.scoreatpercentile(BF[j,:],5)  for j in range(0, N_SS) ]
+up = [stats.scoreatpercentile(BF[j,:],95)  for j in range(0, N_SS) ]
+plt.fill_between(n_ss_vec, low, up,
+                 color='green', alpha=0.2, label=r'$90\%$ evidence interval')
+
+# 50%
+low = [stats.scoreatpercentile(BF[j,:],25)  for j in range(0, N_SS) ]
+up = [stats.scoreatpercentile(BF[j,:],75)  for j in range(0, N_SS) ]
+plt.fill_between(n_ss_vec, low, up,
+                 color='blue', alpha=0.2, label=r'$50\%$ evidence interval')
+
+# plot
+plt.plot(n_ss_vec, mu, '--or', label='Median', ms=5)
+plt.yscale('log')
+
+# horizontal lines
+plt.hlines(150, -1, N_SS+2,linewidth=2 ,colors='blue',linestyles='dashdot', label='Very strong evidence for $M_1$')
+plt.hlines(20, -1, N_SS+2,linewidth=2 , colors='purple' ,linestyles='dashdot' ,label='Strong evidence for $M_1$')
+
+plt.xlabel('$N_{SS}$')
+plt.ylabel('$O_{12}$')
+plt.grid()
+plt.xticks(np.arange(1, 32, step=2))
+plt.xlim(0,30)
+
+# ticks adjusted
+ax =plt.gca()
+import matplotlib as mpl
+
+locmaj = mpl.ticker.LogLocator(base=10.0, subs=(1.0, ), numticks=100)
+ax.yaxis.set_major_locator(locmaj)
+
+locmin = mpl.ticker.LogLocator(base=10.0, subs=np.arange(2, 10) * .1, numticks=90) 
+ax.yaxis.set_minor_locator(locmin)
+ax.yaxis.set_minor_formatter(mpl.ticker.NullFormatter())
+
+
+plt.legend(loc='upper left')#,prop={'size': 6})
+plt.tight_layout()
+plt.show()
+
+# uncomment the next part to write to file the data 
+"""
 # create file
 file = h5py.File('EvidenceData_BayesPlot.h5','w')
 
@@ -237,3 +302,4 @@ file["/bayes_factor_dsitribution"].attrs.create("2d Normal prior with mu", cente
 file["/bayes_factor_dsitribution"].attrs.create("2d Normal prior with Sigma", np.linalg.inv(Mfinal), np.shape(np.linalg.inv(Mfinal))) 
 
 file.close()
+"""
