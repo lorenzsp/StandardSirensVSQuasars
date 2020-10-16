@@ -22,6 +22,12 @@ This folder contains:
     
 - LISA_vs_Quasars.nb
     Mathematica notebook used to construct catalogues of LISA MBHB Standard Sirens and to investigate the constraints on Hubble parameter and matter density
+    
+- SSdatasets
+    Folder containing the representative LISA MBHB Standard Siren observations and results obtained with LISA_vs_Quasars.nb
+
+- SS_catalogues.dat
+    (Redshift, Luminosity Distance [Gpc], uncertainty on Luminosity Distance [Gpc]) observations of the catalogues used to construct the Bayes Factor distributions
 
 ## Contact
 
