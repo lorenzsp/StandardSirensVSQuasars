@@ -39,6 +39,7 @@ Please contact the author of [2] for the usage permission of their data and we w
 
 ## References
 
-[1]: L. Speri, N. Tamanini, R. R. Caldwell, J. Gair, B. Wang. Testing the Quasar Hubble Diagram with LISA Standard Sirens
+[1]: L. Speri, N. Tamanini, R. R. Caldwell, J. Gair, B. Wang. Testing the Quasar Hubble Diagram with LISA Standard Sirens http://arxiv.org/abs/2010.09049
+
 
 [2]: G. Risaliti, E. Lusso. Cosmological constraints from the Hubble diagram of quasars at high redshifts. Nat Astron 3, 272–277 (2019). https://doi.org/10.1038/s41550-018-0657-z
