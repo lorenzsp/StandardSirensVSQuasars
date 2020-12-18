@@ -127,29 +127,6 @@ def log_post(params, z, D, dD):
     
     return result
 
-
-#############################
-# MCMC
-#############################
-
-# start of the MCMC
-pos = [Omega_m_ref, href]
-
-# define sampler
-def MCMC_sampler(pos, iterations):
-    nwalkers, ndim = pos.shape
-    sampler = emcee.EnsembleSampler(nwalkers, ndim, log_post, args=(z_SS, DL_SS, dDL_SS)) 
-    sampler.run_mcmc(pos, iterations, progress=False) # change progress to True if you want to see the progress bar
-
-    # info about the MCMC
-    #print("autocorrelation ",sampler.get_autocorr_time())
-    #print("acceptance fraction ", sampler.acceptance_fraction() )
-    #print("check the convergence by looking at the median of each chain")
-    #print(np.median(sampler.get_chain(discard=150, thin=10, flat=False),axis=0))
-    flat_samples = sampler.get_chain(discard=150, thin=10, flat=True)
-
-    return flat_samples
-
 ###############################
 # multiprocessing MCMC 
 ##############################
@@ -161,19 +138,38 @@ pool = mp.Pool(Nprocs)
 # number of iterations (vary according to how many samples you need for the posterior)
 iterations = 1000000
 
+#############################
+# MCMC
+#############################
+
+# start of the MCMC
+pos = [Omega_m_ref, href]
+
+# define sampler
+def MCMC_sampler(pos):
+    print("Start of the MCMC")
+    nwalkers, ndim = pos.shape
+    sampler = emcee.EnsembleSampler(nwalkers, ndim, log_post, args=(z_SS, DL_SS, dDL_SS), pool=pool) 
+    sampler.run_mcmc(pos, iterations, progress=True) # change progress to True if you want to see the progress bar
+
+    # info about the MCMC
+    #print("autocorrelation ",sampler.get_autocorr_time())
+    #print("acceptance fraction ", sampler.acceptance_fraction() )
+    #print("check the convergence by looking at the median of each chain")
+    #print(np.median(sampler.get_chain(discard=150, thin=10, flat=False),axis=0))
+    flat_samples = sampler.get_chain(discard=150, thin=10, flat=True)
+
+    return flat_samples
+
+
 # different starts for the MCMC
-input = [(pos + 1e-2 * np.random.randn(32, 2), iterations) for I in range(0, Nprocs)]
+pos = pos + 1e-2 * np.random.randn(16, 2)
 
 # output
-out = pool.starmap(MCMC_sampler, input)
-samples = out[0]
-for I in range(1,Nprocs):
-    samples = np.vstack( (samples,out[I]))
-
-#print( samples , np.shape(samples))
+out = MCMC_sampler(pos)
 
 # store samples
-flat_samples = samples
+flat_samples = out
 print("number of samples = ", len(flat_samples))
 print("median = ", np.median(flat_samples,axis=0))
 
