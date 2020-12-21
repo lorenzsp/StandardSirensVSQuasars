@@ -38,7 +38,7 @@ H0 = href/2997.9
 # flat LCDM luminosity distance
 ################################
 
-# numerical integration to get distance for LCDM, which can be estended to wCDM model
+# numerical integration to get distance for LCDM, which can be extended to wCDM model
 
 
 # Generate the LCDM model with the given z, Omega_m and h
